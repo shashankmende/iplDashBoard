@@ -63,7 +63,7 @@ class TeamMatches extends Component {
   }
 
   renderTeamMatches = () => {
-    const {isLoading, latestMatch, recentMatch, teamBannerUrl} = this.state
+    const {latestMatch, recentMatch, teamBannerUrl} = this.state
     const {
       competingTeam,
       competingTeamLogo,
@@ -75,12 +75,7 @@ class TeamMatches extends Component {
       umpires,
       venue,
     } = latestMatch
-    return isLoading ? (
-      <div data-testid="loader">
-        {' '}
-        <Loader type="Oval" color="#ffffff" height={50} width={50} />{' '}
-      </div>
-    ) : (
+    return (
       <div className="team-matches-container">
         <img
           src={teamBannerUrl}
@@ -90,12 +85,12 @@ class TeamMatches extends Component {
         <p className="latest-match">Latest Matches</p>
         <div className="latest-match-details-container">
           <div className="left-container">
-            <h1>{competingTeam}</h1>
+            <p>{competingTeam}</p>
             <p>{date}</p>
             <p>{venue}</p>
             <p>{result}</p>
           </div>
-          <img src={competingTeamLogo} alt={competingTeam} />
+          <img src={competingTeamLogo} alt={`latest match ${competingTeam}`} />
           <div className="right-container">
             <h1>First Innings</h1>
             <p>{firstInnings}</p>
@@ -119,7 +114,13 @@ class TeamMatches extends Component {
   render() {
     const {isLoading} = this.state
 
-    return this.renderTeamMatches()
+    return isLoading ? (
+      <div testid="loader">
+        <Loader type="Oval" color="#ffffff" height={50} width={50} />{' '}
+      </div>
+    ) : (
+      this.renderTeamMatches()
+    )
   }
 }
 
