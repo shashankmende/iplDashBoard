@@ -1,1 +1,44 @@
 /* Write your CSS here */
+.team-matches-container {
+  background-image: linear-gradient(to bottom, #a4361d, #d91c1f, #ffffff33);
+  height: 100vh;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.team-banner-img {
+  width: 100%;
+  margin-bottom: 20px;
+}
+@media screen and (max-width: 567px) {
+  .team-banner-img {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}
+.latest-match {
+  color: white;
+  font-family: 'Bree Serif';
+  align-self: flex-start;
+}
+.latest-match-details-container {
+  width: 100%;
+  background-color: #1e293b;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  font-family: 'Bree Serif';
+}
+.match-card-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}

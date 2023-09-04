@@ -1,10 +1,14 @@
 // Write your code here
+import Loader from 'react-loader-spinner'
 import {Component} from 'react'
 import TeamCard from '../TeamCard'
+
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
+
 import './index.css'
 
 class Home extends Component {
-  state = {teamsList: []}
+  state = {teamsList: [], isLoading: true}
 
   componentDidMount() {
     this.getTeamCard()
@@ -22,13 +26,19 @@ class Home extends Component {
 
     this.setState({
       teamsList: updatedData,
+      isLoading: false,
     })
   }
 
   render() {
-    const {teamsList} = this.state
+    const {teamsList, isLoading} = this.state
     console.log(teamsList)
-    return (
+    return isLoading ? (
+      <div data-testid="loader">
+        {' '}
+        <Loader type="Oval" color="#ffffff" height={50} width={50} />{' '}
+      </div>
+    ) : (
       <div className="home-container">
         <div className="heading-container">
           <img

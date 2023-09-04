@@ -1,1 +1,23 @@
 /* Write your CSS here */
+.list-item {
+  background-color: #1e293b;
+  border-radius: 10px;
+  padding: 20px;
+  width: 30%;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Bree Serif';
+  color: white;
+}
+.lostcss {
+  color: red;
+}
+.woncss {
+  color: green;
+}
+.team-img {
+  height: 150px;
+}
