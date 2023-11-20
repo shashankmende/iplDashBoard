@@ -2,6 +2,8 @@
 import Loader from 'react-loader-spinner'
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 import './index.css'
+import {PieChart, Pie, Legend, Cell, ResponsiveContainer} from 'recharts'
+import {Link} from 'react-router-dom'
 import {Component} from 'react'
 import MatchCard from '../MatchCard'
 
@@ -62,6 +64,67 @@ class TeamMatches extends Component {
     })
   }
 
+  renderStatistics = recentMatch => {
+    const winCount = recentMatch.filter(each => each.matchStatus === 'Won')
+      .length
+    const loseCount = recentMatch.filter(each => each.matchStatus === 'Lost')
+      .length
+    const drawCount = recentMatch.filter(each => {
+      if (each.matchStatus !== 'Won' && each.matchStatus !== 'Lost') {
+        return true
+      }
+      return false
+    }).length
+    console.log('win list=', winCount)
+    console.log('lost count=', loseCount)
+    console.log('draw count=', drawCount)
+
+    const data = [
+      {
+        count: winCount,
+        result: 'Won',
+      },
+      {
+        count: loseCount,
+        result: 'Lost',
+      },
+      {
+        count: drawCount,
+        result: 'Draw',
+      },
+    ]
+
+    return (
+      <>
+        <h1>Team Statistics</h1>
+        <ResponsiveContainer width="100%" height={300}>
+          <PieChart>
+            <Pie
+              cx="70%"
+              cy="40%"
+              data={data}
+              startAngle={0}
+              endAngle={360}
+              innerRadius="40%"
+              outerRadius="70%"
+              dataKey="count"
+            >
+              <Cell name="Won" fill="#fecba6" />
+              <Cell name="Lost" fill="#b3d23f" />
+              <Cell name="Draw" fill="#a44c9e" />
+            </Pie>
+            <Legend
+              iconType="circle"
+              layout="vertical"
+              verticalAlign="middle"
+              align="right"
+            />
+          </PieChart>
+        </ResponsiveContainer>
+      </>
+    )
+  }
+
   renderTeamMatches = () => {
     const {latestMatch, recentMatch, teamBannerUrl} = this.state
     const {
@@ -75,39 +138,60 @@ class TeamMatches extends Component {
       umpires,
       venue,
     } = latestMatch
+
     return (
-      <div className="team-matches-container">
-        <img
-          src={teamBannerUrl}
-          alt="team banner"
-          className="team-banner-img"
-        />
-        <p className="latest-match">Latest Matches</p>
-        <div className="latest-match-details-container">
-          <div className="left-container">
-            <p>{competingTeam}</p>
-            <p>{date}</p>
-            <p>{venue}</p>
-            <p>{result}</p>
+      <>
+        <div className="team-matches-container">
+          <Link to="/">
+            <button type="button" className="back-button">
+              Back
+            </button>
+          </Link>
+          <img
+            src={teamBannerUrl}
+            alt="team banner"
+            className="team-banner-img"
+          />
+          <p className="latest-match">Latest Matches</p>
+          <div className="latest-match-details-container">
+            <div className="left-container">
+              <div>
+                <p>{competingTeam}</p>
+                <p>{date}</p>
+                <p>{venue}</p>
+                <p>{result}</p>
+              </div>
+              <img
+                src={competingTeamLogo}
+                alt={`latest match ${competingTeam}`}
+                className="competing-team-logo small-devices"
+              />
+            </div>
+            <img
+              src={competingTeamLogo}
+              alt="latest match {competing_team}"
+              className="competing-team-logo large-devices"
+            />
+
+            <div className="right-container">
+              <h1>First Innings</h1>
+              <p>{firstInnings}</p>
+              <h1>Second Innings</h1>
+              <p>{secondsInnings}</p>
+              <h1>Man Of The Match</h1>
+              <p>{manOfTheMatch}</p>
+              <h1>Umpires</h1>
+              <p>{umpires}</p>
+            </div>
           </div>
-          <img src={competingTeamLogo} alt={`latest match ${competingTeam}`} />
-          <div className="right-container">
-            <h1>First Innings</h1>
-            <p>{firstInnings}</p>
-            <h1>Second Innings</h1>
-            <p>{secondsInnings}</p>
-            <h1>Man Of The Match</h1>
-            <p>{manOfTheMatch}</p>
-            <h1>Umpires</h1>
-            <p>{umpires}</p>
-          </div>
+          <ul className="match-card-container">
+            {recentMatch.map(each => (
+              <MatchCard card={each} key={each.id} />
+            ))}
+          </ul>
+          <div>{this.renderStatistics(recentMatch)}</div>
         </div>
-        <ul className="match-card-container">
-          {recentMatch.map(each => (
-            <MatchCard card={each} key={each.id} />
-          ))}
-        </ul>
-      </div>
+      </>
     )
   }
 
@@ -115,11 +199,11 @@ class TeamMatches extends Component {
     const {isLoading} = this.state
 
     return isLoading ? (
-      <div testid="loader">
-        <Loader type="Oval" color="#ffffff" height={50} width={50} />{' '}
+      <div data-testid="loader" className="loader-container">
+        <Loader type="Oval" color="blue" height={50} width={50} />
       </div>
     ) : (
-      this.renderTeamMatches()
+      <div>{this.renderTeamMatches()}</div>
     )
   }
 }

@@ -35,10 +35,84 @@
   color: white;
   font-family: 'Bree Serif';
 }
+@media screen and (max-width: 576px) {
+  .latest-match-details-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+  .left-container {
+    display: flex;
+    flex-direction: row;
+  }
+  .large-devices {
+    display: none;
+  }
+  .right-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border: 2px solid red;
+  }
+}
+@media screen and (min-width: 578px) {
+  .left-container {
+    display: flex;
+    flex-direction: row;
+
+    justify-content: space-around;
+  }
+  .small-devices {
+    display: none;
+  }
+}
 .match-card-container {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
+
+  align-items: flex-start;
   flex-wrap: wrap;
+}
+@media screen and (max-width: 576px) {
+  .match-card-container {
+    display: flex;
+
+    align-items: flex-start;
+  }
+}
+
+.back-button {
+  width: 150px;
+  height: 50px;
+  background-color: yellow;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  color: gray;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.competing-team-logo {
+  width: 150px;
+}
+@media screen and (min-width: 576px) {
+  .competing-team-logo {
+    width: 250px;
+  }
+}
+
+.loader-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+ResponsiveContainer {
+  display: flex;
+  flex-direction: row;
 }

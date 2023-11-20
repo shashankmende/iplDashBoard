@@ -11,7 +11,6 @@ const MatchCard = props => {
 
     matchStatus,
   } = card
-  console.log()
 
   const resultStyle = matchStatus === 'Lost' ? 'lostcss' : 'woncss'
 
